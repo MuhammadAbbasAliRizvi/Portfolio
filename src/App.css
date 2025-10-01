@@ -20,7 +20,7 @@
 }
 
 [data-theme="dark"] {
-  --primary-color: #4dabf7;          /* Softer blue for dark */
+  --primary-color: #123f64;          /* Softer blue for dark */
   --secondary-color: #9775fa;        /* Light Purple */
   --accent-color: #ff8787;           /* Softer Coral */
   --accent-alt: #38ef7d;             /* Neon green accent */

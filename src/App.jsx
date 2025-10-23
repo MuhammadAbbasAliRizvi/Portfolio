@@ -1,28 +1,31 @@
-import React, { useState, useEffect } from 'react'
-import Home from './pages/Home'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { HelmetProvider } from 'react-helmet-async';
+import { lightTheme, darkTheme } from './theme';
+import Home from './pages/Home';
 
 function App() {
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light'
-    setTheme(savedTheme)
-    document.documentElement.setAttribute('data-theme', savedTheme)
-  }, [])
+    const savedTheme = localStorage.getItem('portfolio-theme') || 'light';
+    setTheme(savedTheme);
+  }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light'
-    setTheme(newTheme)
-    localStorage.setItem('theme', newTheme)
-    document.documentElement.setAttribute('data-theme', newTheme)
-  }
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('portfolio-theme', newTheme);
+  };
 
   return (
-    <div className="app">
-      <Home toggleTheme={toggleTheme} theme={theme} />
-    </div>
-  )
+    <HelmetProvider>
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <CssBaseline />
+        <Home toggleTheme={toggleTheme} theme={theme} />
+      </ThemeProvider>
+    </HelmetProvider>
+  );
 }
 
-export default App
+export default App;

@@ -1,121 +1,256 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import {
+  Container,
+  Typography,
+  Grid,
+  TextField,
+  Button,
+  Box,
+  Alert,
+  Card,
+  CardContent,
+  Snackbar,
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import emailjs from '@emailjs/browser';
+import { Email, Phone, LocationOn, GitHub } from '@mui/icons-material';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-  const [showToast, setShowToast] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+  const validationSchema = yup.object({
+    name: yup.string().required('Name is required'),
+    email: yup.string().email('Invalid email').required('Email is required'),
+    subject: yup.string().required('Subject is required'),
+    message: yup.string().required('Message is required').min(10, 'Message must be at least 10 characters'),
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Simulate form submission
-    setShowToast(true)
-    setFormData({ name: '', email: '', subject: '', message: '' })
-    
-    setTimeout(() => {
-      setShowToast(false)
-    }, 3000)
-  }
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        // For demo purposes - in real app, use EmailJS
+        console.log('Form submitted:', values);
+        
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        setSubmitStatus('success');
+        resetForm();
+      } catch (error) {
+        setSubmitStatus('error');
+      }
+    },
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
 
   return (
-    <section id="contact" className="section">
-      <div className="container">
-        <h2 className="section-title">Contact Me</h2>
-        <div className="contact-content">
-          <div className="contact-info">
-            <h3>Get in Touch</h3>
-            <div className="contact-item">
-              <span className="contact-icon">📍</span>
-              <span>Karachi, Pakistan</span>
-            </div>
-            <div className="contact-item">
-              <span className="contact-icon">📧</span>
-              <span>muhammadabbas0321299@gmail.com</span>
-            </div>
-            <div className="contact-item">
-              <span className="contact-icon">📱</span>
-              <span>0318-2322363 / 03212997059</span>
-            </div>
-            <div className="contact-item">
-              <span className="contact-icon">💼</span>
-              <span>Freelance: Available</span>
-            </div>
-            <div className="contact-item">
-              <span className="contact-icon">🔗</span>
-              <a href="https://github.com/MuhammadAbbasAliRizvi" target="_blank" rel="noopener noreferrer">
-                github.com/MuhammadAbbasAliRizvi
-              </a>
-            </div>
-          </div>
+    <Box id="contact" sx={{ py: 8 }}>
+      <Container maxWidth="lg">
+        <motion.div
+          ref={ref}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={containerVariants}
+        >
+          <motion.div variants={itemVariants}>
+            <Typography variant="h2" component="h2" textAlign="center" gutterBottom>
+              Contact Me
+            </Typography>
+            <Typography variant="h6" component="p" textAlign="center" color="text.secondary" sx={{ mb: 6 }}>
+              Let's work together on your next project
+            </Typography>
+          </motion.div>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name" className="form-label">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-input"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email" className="form-label">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="form-input"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="subject" className="form-label">Subject</label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                className="form-input"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="message" className="form-label">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                className="form-textarea"
-                value={formData.message}
-                onChange={handleChange}
-                required
-              ></textarea>
-            </div>
-            <button type="submit" className="btn btn-primary">Send Message</button>
-          </form>
-        </div>
+          <Grid container spacing={6}>
+            <Grid item xs={12} md={4}>
+              <motion.div variants={containerVariants}>
+                <motion.div variants={itemVariants}>
+                  <Card sx={{ mb: 3 }}>
+                    <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 3 }}>
+                      <LocationOn color="primary" sx={{ fontSize: 32 }} />
+                      <Box>
+                        <Typography variant="h6">Location</Typography>
+                        <Typography color="text.secondary">Karachi, Pakistan</Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </motion.div>
 
-        <div className={`toast ${showToast ? 'show' : ''}`}>
-          Message sent successfully! I'll get back to you soon.
-        </div>
-      </div>
-    </section>
-  )
-}
+                <motion.div variants={itemVariants}>
+                  <Card sx={{ mb: 3 }}>
+                    <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 3 }}>
+                      <Email color="primary" sx={{ fontSize: 32 }} />
+                      <Box>
+                        <Typography variant="h6">Email</Typography>
+                        <Typography color="text.secondary">
+                          muhammadabbas0321299@gmail.com
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </motion.div>
 
-export default Contact
+                <motion.div variants={itemVariants}>
+                  <Card sx={{ mb: 3 }}>
+                    <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 3 }}>
+                      <Phone color="primary" sx={{ fontSize: 32 }} />
+                      <Box>
+                        <Typography variant="h6">Phone</Typography>
+                        <Typography color="text.secondary">
+                          0318-2322363 / 03212997059
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+
+                <motion.div variants={itemVariants}>
+                  <Card>
+                    <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 3 }}>
+                      <GitHub color="primary" sx={{ fontSize: 32 }} />
+                      <Box>
+                        <Typography variant="h6">GitHub</Typography>
+                        <Typography color="text.secondary">
+                          github.com/MuhammadAbbasAliRizvi
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </motion.div>
+            </Grid>
+
+            <Grid item xs={12} md={8}>
+              <motion.div variants={itemVariants}>
+                <Card>
+                  <CardContent sx={{ p: 4 }}>
+                    <form onSubmit={formik.handleSubmit}>
+                      <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                          <TextField
+                            fullWidth
+                            id="name"
+                            name="name"
+                            label="Your Name"
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.name && Boolean(formik.errors.name)}
+                            helperText={formik.touched.name && formik.errors.name}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <TextField
+                            fullWidth
+                            id="email"
+                            name="email"
+                            label="Email Address"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            helperText={formik.touched.email && formik.errors.email}
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            id="subject"
+                            name="subject"
+                            label="Subject"
+                            value={formik.values.subject}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.subject && Boolean(formik.errors.subject)}
+                            helperText={formik.touched.subject && formik.errors.subject}
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            id="message"
+                            name="message"
+                            label="Message"
+                            multiline
+                            rows={4}
+                            value={formik.values.message}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.message && Boolean(formik.errors.message)}
+                            helperText={formik.touched.message && formik.errors.message}
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            type="submit"
+                            size="large"
+                            disabled={formik.isSubmitting}
+                            sx={{ px: 4, py: 1.5 }}
+                          >
+                            {formik.isSubmitting ? 'Sending...' : 'Send Message'}
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </form>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Grid>
+          </Grid>
+        </motion.div>
+
+        <Snackbar
+          open={!!submitStatus}
+          autoHideDuration={6000}
+          onClose={() => setSubmitStatus(null)}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert
+            onClose={() => setSubmitStatus(null)}
+            severity={submitStatus}
+            sx={{ width: '100%' }}
+          >
+            {submitStatus === 'success' 
+              ? 'Message sent successfully! I will get back to you soon.' 
+              : 'Failed to send message. Please try again.'}
+          </Alert>
+        </Snackbar>
+      </Container>
+    </Box>
+  );
+};
+
+export default Contact;

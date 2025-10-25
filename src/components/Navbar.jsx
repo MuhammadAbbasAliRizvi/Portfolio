@@ -121,7 +121,7 @@ const Navbar = ({ toggleTheme, theme }) => {
 
   return (
     <>
-      <HideOnScroll>B
+      <HideOnScroll>
         <AppBar
           component="nav"
           sx={{

@@ -1,3 +1,7 @@
+// theme / // 
+  // index.js //
+
+
 import { createTheme } from '@mui/material/styles';
 
 export const lightTheme = createTheme({

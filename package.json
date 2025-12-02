@@ -9,11 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
-    "@emailjs/browser": "^4.4.1",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.24",
     "react": "^18.2.0",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
+    "baseline-browser-mapping": "^2.8.31",
     "vite": "^4.3.0"
   }
 }

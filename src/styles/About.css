@@ -1,0 +1,108 @@
+/* About.css - clean ARY-like theme (no imports) */
+:root{
+  --ary-blue: #0056b3;
+  --ary-blue-deep: #003d82;
+  --bg-soft: #f7fbff;
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+  --shadow: 0 10px 30px rgba(2,6,23,0.06);
+  --radius: 12px;
+  --transition: 300ms cubic-bezier(.2,.9,.3,1);
+}
+
+#about {
+  background: var(--bg-soft);
+  padding: 80px 16px;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container adjustments (if you use a wrapper .container) */
+#about .container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Heading */
+#about h2 {
+  font-size: 2.6rem;
+  text-align: center;
+  color: var(--ary-blue);
+  margin-bottom: 1rem;
+  letter-spacing: 0.2px;
+  font-weight: 700;
+}
+
+/* Intro paragraphs */
+#about .MuiTypography-root {
+  color: #1f2937;
+}
+
+/* Layout grid */
+#about .MuiGrid-container {
+  gap: 2.5rem;
+}
+
+/* Left text column */
+#about .MuiGrid-item:first-child {
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #111827;
+}
+
+/* Info card (right) */
+#about .MuiPaper-root {
+  padding: 24px;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-left: 6px solid rgba(5,86,179,0.12);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+/* Hover lift for the card */
+#about .MuiPaper-root:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(2,6,23,0.09);
+}
+
+/* Personal info rows */
+#about .MuiPaper-root .MuiBox-root > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(15,23,42,0.06);
+}
+
+#about .MuiPaper-root .MuiBox-root > div:last-child {
+  border-bottom: none;
+}
+
+/* Labels and values */
+#about .MuiPaper-root .MuiTypography-root {
+  font-size: 0.98rem;
+}
+
+#about .MuiPaper-root .MuiTypography-root[style*="fontWeight: 600"] {
+  color: #0f172a;
+}
+
+/* Small screens adjustments */
+@media (max-width: 900px) {
+  #about {
+    padding: 48px 16px;
+  }
+
+  #about h2 {
+    font-size: 2rem;
+  }
+
+  #about .MuiGrid-container {
+    gap: 1.5rem;
+  }
+
+  #about .MuiPaper-root {
+    padding: 18px;
+  }
+}

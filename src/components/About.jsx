@@ -6,113 +6,76 @@ import { useInView } from 'react-intersection-observer';
 const About = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
   });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7 } }
   };
 
   return (
-    <Box id="about" sx={{ py: 8 }}>
+    <Box id="about" sx={{ py: 10, bgcolor: "#f8faff" }}>
       <Container maxWidth="lg">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
         >
-          <motion.div variants={itemVariants}>
+          <motion.div variants={fadeUp}>
             <Typography
               variant="h2"
-              component="h2"
               textAlign="center"
-              gutterBottom
-              sx={{ mb: 6 }}
+              sx={{ mb: 6, fontWeight: 700, color: "#0B63E5" }}
             >
               About Me
             </Typography>
           </motion.div>
 
           <Grid container spacing={6}>
+            {/* LEFT SIDE TEXT */}
             <Grid item xs={12} md={8}>
-              <motion.div variants={itemVariants}>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{ mb: 3, lineHeight: 1.8 }}
-                >
-                  I'm a passionate web developer based in Karachi, Pakistan currently pursuing my DAE in CIT (1st year). 
-                  I specialize in front-end development with expertise in HTML5, CSS, and JavaScript.
+              <motion.div variants={fadeUp}>
+                <Typography variant="h6" sx={{ mb: 3, lineHeight: 1.8 }}>
+                  I’m a passionate Web Developer from Karachi, currently studying
+                  DAE in CIT (2nd Year). I build modern, clean and animated UIs
+                  using React, Firebase & the MERN stack.
                 </Typography>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{ mb: 3, lineHeight: 1.8 }}
-                >
-                  Currently expanding my knowledge in advanced JavaScript, PHP, and React.js to become a full-stack developer. 
-                  I also have foundational skills in Adobe Photoshop and Illustrator for design work.
+
+                <Typography variant="h6" sx={{ mb: 3, lineHeight: 1.8 }}>
+                  Skilled in HTML, CSS, JavaScript & React — and now learning backend
+                  development to become a full-stack developer.
                 </Typography>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{ lineHeight: 1.8 }}
-                >
-                  When I'm not coding, I enjoy exploring new technologies, contributing to open-source projects, 
-                  and creating personal projects to enhance my skills.
+
+                <Typography variant="h6" sx={{ lineHeight: 1.8 }}>
+                  I enjoy exploring new technologies, contributing to open-source
+                  and making projects that improve my skillset.
                 </Typography>
               </motion.div>
             </Grid>
 
+            {/* RIGHT SIDE INFO CARD */}
             <Grid item xs={12} md={4}>
-              <motion.div variants={itemVariants}>
+              <motion.div variants={fadeUp}>
                 <Paper
-                  elevation={3}
+                  elevation={4}
                   sx={{
                     p: 4,
-                    height: '100%',
-                    backgroundColor: 'background.paper',
+                    borderLeft: "5px solid #0B63E5",
+                    borderRadius: 3,
+                    background: "white",
                   }}
                 >
-                  <Typography variant="h5" component="h3" gutterBottom sx={{ mb: 3 }}>
+                  <Typography variant="h5" sx={{ mb: 3, fontWeight: 700 }}>
                     Personal Information
                   </Typography>
-                  
-                  <Box sx={{ '& > div': { py: 1.5, borderBottom: '1px solid', borderColor: 'divider' } }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="body1" fontWeight="600">Name:</Typography>
-                      <Typography variant="body1" color="text.secondary">Muhammad Abbas</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="body1" fontWeight="600">Location:</Typography>
-                      <Typography variant="body1" color="text.secondary">Karachi, Pakistan</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="body1" fontWeight="600">Email:</Typography>
-                      <Typography variant="body1" color="text.secondary">muhammadabbas0321299@gmail.com</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="body1" fontWeight="600">Phone:</Typography>
-                      <Typography variant="body1" color="text.secondary">0318-2322363 / 03212997059</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="body1" fontWeight="600">Freelance:</Typography>
-                      <Typography variant="body1" color="primary.main">Available</Typography>
-                    </Box>
+
+                  <Box sx={{ '& > div': { py: 1.5, borderBottom: "1px solid #eee" } }}>
+                    <InfoRow label="Name" value="Muhammad Abbas" />
+                    <InfoRow label="Location" value="Karachi, Pakistan" />
+                    <InfoRow label="Email" value="muhammadabbas0321299@gmail.com" />
+                    <InfoRow label="Phone" value="0318-2322363 / 03212997059" />
+                    <InfoRow label="Freelance" value="Available" highlight />
                   </Box>
                 </Paper>
               </motion.div>
@@ -123,5 +86,14 @@ const About = () => {
     </Box>
   );
 };
+
+const InfoRow = ({ label, value, highlight }) => (
+  <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <Typography fontWeight={600}>{label}:</Typography>
+    <Typography color={highlight ? "primary.main" : "text.secondary"} fontWeight={highlight ? 700 : 400}>
+      {value}
+    </Typography>
+  </Box>
+);
 
 export default About;

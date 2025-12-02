@@ -180,14 +180,14 @@ const Navbar = ({ toggleTheme, theme }) => {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <IconButton
+                  {/* <IconButton
                     onClick={toggleTheme}
                     color="inherit"
                     aria-label="toggle theme"
                     sx={{ ml: 1 }}
                   >
                     {theme === 'light' ? <DarkMode /> : <LightMode />}
-                  </IconButton>
+                  </IconButton> */}
                 </motion.div>
               </Box>
 

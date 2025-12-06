@@ -29,8 +29,8 @@ const Home = ({ toggleTheme, theme }) => {
           <Hero />
           <About />
           <Skills />
-          <Education />
           <Projects />
+          <Education />
           <Contact />
         </Box>
       </motion.div>

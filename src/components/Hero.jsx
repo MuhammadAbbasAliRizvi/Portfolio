@@ -134,8 +134,7 @@ const Hero = () => {
                   }}
                 >
                   Mern Stack Developer based in Karachi, Pakistan
-                  <br />
-                  DAE in CIT (2nd Year)
+                  
                 </Typography>
               </motion.div>
 

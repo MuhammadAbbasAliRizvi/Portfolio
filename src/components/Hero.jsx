@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Grid, Typography, Button, Box, Avatar } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Code, GitHub, Download } from '@mui/icons-material';
-import profilePic from '../assets/pics/Avatar.png';
+import profilePic from '../assets/pics/io.png';
 import { useTheme } from '@mui/material/styles';
 
 const Hero = () => {
@@ -45,6 +45,9 @@ const Hero = () => {
     y: [0, -20, 0],
     transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
   };
+
+  // new subtitle text to animate letter-by-letter
+  const subtitle = 'Mern Stack Developer based in Karachi, Pakistan';
 
   const backgroundVariants = {
     hidden: { opacity: 0 },
@@ -113,7 +116,39 @@ const Hero = () => {
                 <Typography
                   variant="h1"
                   sx={{
-                    color: isLight ? theme.palette.primary.dark : 'white',
+                    // Color (green gradient) + background-clip to match green "View Projects" button
+                    background: `linear-gradient(90deg, ${theme.palette.success.light || '#9af57a'}, ${theme.palette.success.main || '#4caf50'})`,
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    color: 'transparent',
+
+                    // Type effect: width animated with steps()
+                    display: 'inline-block',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    borderRight: `3px solid ${theme.palette.success.main || '#4caf50'}`,
+                    width: { xs: '16ch', md: '18ch' },
+
+                    // Glow animation (text-shadow) with greenish glow
+                    textShadow: `0 0 8px rgba(76,175,80,0.45)`,
+
+                    // Keyframes (typing, blink caret, glow pulse)
+                    '@keyframes typingHero': {
+                      '0%': { width: '0ch' },
+                      '100%': { width: '18ch' },
+                    },
+                    '@keyframes blinkCaretHero': {
+                      '50%': { borderRightColor: 'transparent' },
+                    },
+                    '@keyframes glowHero': {
+                      '0%': { textShadow: `0 0 6px rgba(76,175,80,0.35)` },
+                      '50%': { textShadow: `0 0 18px rgba(126,217,87,0.9)` },
+                      '100%': { textShadow: `0 0 6px rgba(76,175,80,0.35)` },
+                    },
+
+                    animation:
+                      'typingHero 2.4s steps(18,end) 0.4s forwards, blinkCaretHero 0.8s steps(2,start) 2s infinite, glowHero 2.4s ease-in-out 0.4s infinite',
                     fontWeight: 700,
                     mb: 2,
                     fontSize: { xs: '2.5rem', md: '3.5rem' },
@@ -126,15 +161,37 @@ const Hero = () => {
               <motion.div variants={itemVariants}>
                 <Typography
                   variant="h5"
+                  component="div"
                   sx={{
-                    color: isLight
-                      ? theme.palette.text.secondary
-                      : 'rgba(255,255,255,0.9)',
+                    // Hide -> we'll animate letters individually
+                    overflow: 'hidden',
+                    display: 'inline-block',
+                    whiteSpace: 'nowrap',
+                    color: isLight ? theme.palette.text.secondary : 'rgba(255,255,255,0.9)',
                     mb: 3,
+                    // keyframe for individual letters
+                    '@keyframes letterIn': {
+                      '0%': { opacity: 0, transform: 'translateY(10px)' },
+                      '100%': { opacity: 1, transform: 'translateY(0)' },
+                    },
+                    // small subtle glow to differentiate from heading
+                    textShadow: '0 1px 0 rgba(0,0,0,0.02)',
                   }}
                 >
-                  Mern Stack Developer based in Karachi, Pakistan
-                  
+                  {subtitle.split('').map((ch, i) => (
+                    <Box
+                      component="span"
+                      key={i}
+                      sx={{
+                        display: 'inline-block',
+                        opacity: 0,
+                        transform: 'translateY(10px)',
+                        animation: `letterIn 0.45s ease forwards ${0.9 + i * 0.03}s`,
+                      }}
+                    >
+                      {ch === ' ' ? '\u00A0' : ch}
+                    </Box>
+                  ))}
                 </Typography>
               </motion.div>
 
@@ -147,14 +204,22 @@ const Hero = () => {
                       href="#projects"
                       startIcon={<Code />}
                       sx={{
-                        bgcolor: theme.palette.primary.main,
+                        // change "View Projects" button to green (success)
+                        bgcolor: theme.palette.success.main,
                         color: 'white',
                         '&:hover': {
-                          bgcolor: theme.palette.primary.dark,
+                          bgcolor: theme.palette.success.dark,
                         },
                         px: 3,
                         py: 1,
                         fontWeight: 600,
+                        // Move effect on mount (subtle transform)
+                        transform: 'translateY(8px)',
+                        '@keyframes btnRise': {
+                          '0%': { transform: 'translateY(8px)', opacity: 0 },
+                          '100%': { transform: 'translateY(0)', opacity: 1 },
+                        },
+                        animation: 'btnRise 0.6s ease forwards 1.2s',
                       }}
                     >
                       View Projects
@@ -175,6 +240,8 @@ const Hero = () => {
                         px: 3,
                         py: 1,
                         fontWeight: 600,
+                        transform: 'translateY(8px)',
+                        animation: 'btnRise 0.6s ease forwards 1.3s',
                       }}
                     >
                       Contact Me
@@ -236,12 +303,14 @@ const Hero = () => {
                     src={profilePic}
                     alt="Muhammad Abbas"
                     sx={{
-                      width: { xs: 250, md: 350 },
-                      height: { xs: 250, md: 350 },
+                      width: { xs: 270, md: 350 },
+                      height: { xs: 160, md: 360 }, // different width/height -> pill/oval
+                      objectFit: 'cover',
                       border: `4px solid ${theme.palette.primary.main}`,
                       boxShadow: `0 15px 40px ${theme.palette.primary.light}`,
                       transition: '0.3s',
                       cursor: 'pointer',
+                      borderRadius: '999px' // Pill / oval
                     }}
                   />
                 </motion.div>

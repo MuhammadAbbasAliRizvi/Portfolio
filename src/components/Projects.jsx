@@ -155,7 +155,7 @@ const Projects = () => {
           className="projects-header"
         >
           <div className="section-title-wrapper">
-            <span className="section-label">PORTFOLIO</span>
+            {/* <span className="section-label">PORTFOLIO</span> */}
             <h2 className="section-title">
               Featured <span className="gradient-text">Projects</span>
             </h2>

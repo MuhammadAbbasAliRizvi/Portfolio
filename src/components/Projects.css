@@ -169,13 +169,14 @@
   right: -28px;
 }
 
-/* Single Slide Container */
+/* Single Slide Container - made flexible & compact */
 .carousel-slide-container {
   position: relative;
-  height: 600px;
   width: 100%;
   overflow: hidden;
   border-radius: 32px;
+  height: auto;           /* removed large fixed height */
+  min-height: 520px;     /* keeps visual presence on desktop */
 }
 
 .carousel-slide {
@@ -218,21 +219,22 @@
   opacity: 0.7;
 }
 
-/* Project Card */
+/* Project Card - compact, centered, slightly reduced max-width */
 .project-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 28px;
   width: 100%;
-  max-width: 1200px;
-  height: 100%;
-  backdrop-filter: blur(20px);
+  max-width: 1100px;        /* reduced from 1200 */
+  height: auto;             /* don't force full height */
+  align-items: center;      /* vertically center content */
+  backdrop-filter: blur(18px);
   border-radius: 24px;
-  padding: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 28px;            /* reduced padding */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
   position: relative;
   overflow: hidden;
 }
@@ -257,7 +259,7 @@
 .project-title {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: 2.5rem;
+  font-size: 2.1rem;    /* reduced from 2.5rem */
   line-height: 1.2;
   margin-bottom: 12px;
   color: #f1f5f9;
@@ -272,9 +274,9 @@
 
 .project-description {
   color: #94a3b8;
-  line-height: 1.7;
-  margin-bottom: 32px;
-  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 24px;  /* reduced */
+  font-size: 1rem;      /* reduced from 1.1rem */
 }
 
 /* Technologies Container */
@@ -282,22 +284,22 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;   /* reduced vertical gap */
   align-items: center;
 }
 
 .tech-chip {
-  background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.2), 
+  background: linear-gradient(135deg,
+    rgba(59, 130, 246, 0.2),
     rgba(139, 92, 246, 0.2));
   color: #8be9fd;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;     /* reduced */
   border: 1px solid rgba(139, 92, 246, 0.3);
-  height: 32px;
-  padding: 0 16px;
+  height: 28px;          /* reduced from 32 */
+  padding: 0 14px;       /* reduced horizontal padding */
   border-radius: 50px;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   backdrop-filter: blur(10px);
   display: inline-flex;
   align-items: center;
@@ -325,26 +327,26 @@
 .card-actions {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;             /* tightened spacing */
 }
 
 .view-details-btn {
-  background: linear-gradient(135deg, 
-    #3b82f6, 
+  background: linear-gradient(135deg,
+    #3b82f6,
     #8b5cf6);
   color: white;
   border: none;
   border-radius: 14px;
-  padding: 16px 32px;
+  padding: 14px 28px;    /* reduced */
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.22);
 }
 
 .view-details-btn:hover {
@@ -360,12 +362,12 @@
 .live-demo-btn, .source-code-btn {
   flex: 1;
   border-radius: 14px;
-  padding: 14px 20px;
+  padding: 12px 18px;    /* reduced */
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -373,33 +375,7 @@
   gap: 8px;
 }
 
-.live-demo-btn {
-  border: 2px solid #10b981;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-}
-
-.live-demo-btn:hover {
-  background: #10b981;
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-}
-
-.source-code-btn {
-  border: 2px solid #8b5cf6;
-  color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.1);
-}
-
-.source-code-btn:hover {
-  background: #8b5cf6;
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
-}
-
-/* Card Image - Right Side */
+/* Card Image - Right Side (reduced height) */
 .card-image-container {
   display: flex;
   align-items: center;
@@ -410,17 +386,17 @@
 .image-wrapper {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 320px;        /* reduced from 400px */
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
 }
 
 .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .carousel-slide-container:hover .card-image {
@@ -1207,25 +1183,26 @@
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (Tuned for compact look)
    ============================================ */
 
 @media (max-width: 1200px) {
   .projects-section {
-    padding: 100px 0;
+    padding: 90px 0;
   }
-  
+
   .section-title {
     font-size: 3rem;
   }
-  
+
   .project-info-grid {
-    gap: 32px;
+    gap: 28px;
   }
-  
+
   .project-card {
-    gap: 30px;
-    padding: 30px;
+    gap: 24px;
+    padding: 24px;
+    max-width: 1000px;
   }
 }
 
@@ -1233,43 +1210,44 @@
   .section-title {
     font-size: 2.5rem;
   }
-  
+
   .section-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .project-info-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .project-card {
     grid-template-columns: 1fr;
     height: auto;
-    min-height: 700px;
+    min-height: 0;
+    padding: 20px;
   }
-  
+
   .card-content {
     padding-right: 0;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
   }
-  
+
   .image-wrapper {
-    height: 300px;
+    height: 260px;   /* reduced for mobile */
   }
-  
+
   .carousel-slide-container {
-    height: 700px;
+    min-height: 620px; /* mobile-focused min height */
   }
-  
+
   .carousel-btn {
     left: 10px;
     right: 10px;
   }
-  
+
   .prev-btn {
     left: -20px;
   }
-  
+
   .next-btn {
     right: -20px;
   }
@@ -1279,65 +1257,65 @@
   .projects-header {
     margin-bottom: 60px;
   }
-  
+
   .section-title {
     font-size: 2.2rem;
   }
-  
+
   .carousel-slide-container {
-    height: 750px;
+    min-height: 640px;
   }
-  
+
   .project-title {
-    font-size: 2rem;
+    font-size: 1.9rem; /* slightly tightened */
   }
-  
+
   .project-counter {
     bottom: -50px;
     font-size: 1.5rem;
   }
-  
+
   .modal-header {
     padding: 32px 32px 16px;
   }
-  
+
   .modal-title {
     font-size: 2rem;
   }
-  
+
   .modal-content {
     padding: 0 32px;
   }
-  
+
   .modal-actions {
     padding: 24px 32px;
     flex-direction: column;
   }
-  
+
   .modal-actions button,
   .modal-actions a {
     width: 100%;
   }
-  
+
   .modal-image {
     height: 300px;
   }
-  
+
   .technologies-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .project-stats {
     flex-direction: column;
     gap: 30px;
     padding: 24px;
   }
-  
+
   .stat-divider {
     width: 60px;
     height: 1px;
   }
-  
+
   .carousel-btn {
     width: 48px;
     height: 48px;
@@ -1346,67 +1324,67 @@
 
 @media (max-width: 600px) {
   .projects-section {
-    padding: 80px 0;
+    padding: 70px 0;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .section-subtitle {
     font-size: 1rem;
     padding: 0 20px;
   }
-  
+
   .carousel-slide-container {
-    height: 800px;
+    min-height: 680px;
   }
-  
+
   .project-title {
     font-size: 1.6rem;
   }
-  
+
   .project-card {
-    padding: 20px;
+    padding: 16px;
   }
-  
+
   .carousel-slide {
-    padding: 20px;
+    padding: 16px;
   }
-  
+
   .view-details-btn,
   .live-demo-btn,
   .source-code-btn {
-    padding: 12px 20px;
+    padding: 10px 16px;
     font-size: 0.9rem;
   }
-  
+
   .modal-header {
     padding: 24px 24px 12px;
   }
-  
+
   .modal-title {
     font-size: 1.6rem;
   }
-  
+
   .modal-content {
     padding: 0 24px;
   }
-  
+
   .modal-actions {
     padding: 20px 24px;
   }
-  
+
   .carousel-btn {
     width: 40px;
     height: 40px;
     font-size: 1rem;
   }
-  
+
   .prev-btn {
     left: -15px;
   }
-  
+
   .next-btn {
     right: -15px;
   }
@@ -1414,66 +1392,66 @@
 
 @media (max-width: 480px) {
   .carousel-slide-container {
-    height: 850px;
+    min-height: 720px;
   }
-  
+
   .card-content {
     padding: 0;
   }
-  
+
   .technologies-container {
     gap: 8px;
   }
-  
+
   .tech-chip {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     padding: 0 12px;
     height: 28px;
   }
-  
+
   .action-buttons {
     flex-direction: column;
   }
-  
+
   .featured-badge {
     top: 16px;
     left: 16px;
     padding: 8px 16px;
   }
-  
+
   .status-badge,
   .year-badge {
     top: 16px;
     right: 16px;
   }
-  
+
   .year-badge {
     top: 56px;
   }
-  
+
   .badge-text {
     font-size: 0.7rem;
   }
-  
+
   .modal-title-wrapper {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .modal-category {
     align-self: flex-start;
   }
-  
+
   .carousel-dots {
     gap: 8px;
   }
-  
+
   .carousel-dot {
     width: 32px;
     height: 6px;
   }
-  
+
   .project-counter {
     font-size: 1.3rem;
     bottom: -40px;

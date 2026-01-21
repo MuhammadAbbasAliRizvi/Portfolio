@@ -116,6 +116,11 @@ const Hero = () => {
                 <Typography
                   variant="h1"
                   sx={{
+                    // responsive CSS vars for typing animation
+                    '--typing-width': { xs: '16ch', md: '18ch' },
+                    '--typing-steps': { xs: '16', md: '18' },
+
+                    // use CSS var instead of fixed widths so animation matches screen
                     // Color (green gradient) + background-clip to match green "View Projects" button
                     background: `linear-gradient(90deg, ${theme.palette.success.light || '#9af57a'}, ${theme.palette.success.main || '#4caf50'})`,
                     WebkitBackgroundClip: 'text',
@@ -128,7 +133,7 @@ const Hero = () => {
                     overflow: 'hidden',
                     whiteSpace: 'nowrap',
                     borderRight: `3px solid ${theme.palette.success.main || '#4caf50'}`,
-                    width: { xs: '16ch', md: '18ch' },
+                    width: 'var(--typing-width)',
 
                     // Glow animation (text-shadow) with greenish glow
                     textShadow: `0 0 8px rgba(76,175,80,0.45)`,
@@ -136,7 +141,7 @@ const Hero = () => {
                     // Keyframes (typing, blink caret, glow pulse)
                     '@keyframes typingHero': {
                       '0%': { width: '0ch' },
-                      '100%': { width: '18ch' },
+                      '100%': { width: 'var(--typing-width)' },
                     },
                     '@keyframes blinkCaretHero': {
                       '50%': { borderRightColor: 'transparent' },
@@ -148,7 +153,7 @@ const Hero = () => {
                     },
 
                     animation:
-                      'typingHero 2.4s steps(18,end) 0.4s forwards, blinkCaretHero 0.8s steps(2,start) 2s infinite, glowHero 2.4s ease-in-out 0.4s infinite',
+                      'typingHero 2.4s steps(var(--typing-steps),end) 0.4s forwards, blinkCaretHero 0.8s steps(2,start) 2s infinite, glowHero 2.4s ease-in-out 0.4s infinite',
                     fontWeight: 700,
                     mb: 2,
                     fontSize: { xs: '2.5rem', md: '3.5rem' },
@@ -165,8 +170,8 @@ const Hero = () => {
                   sx={{
                     // Hide -> we'll animate letters individually
                     overflow: 'hidden',
-                    display: 'inline-block',
-                    whiteSpace: 'nowrap',
+                    display: 'block',
+                    whiteSpace: 'normal', // allow wrapping on small screens
                     color: isLight ? theme.palette.text.secondary : 'rgba(255,255,255,0.9)',
                     mb: 3,
                     // keyframe for individual letters
@@ -189,7 +194,7 @@ const Hero = () => {
                         animation: `letterIn 0.45s ease forwards ${0.9 + i * 0.03}s`,
                       }}
                     >
-                      {ch === ' ' ? '\u00A0' : ch}
+                      {ch}
                     </Box>
                   ))}
                 </Typography>
@@ -303,14 +308,15 @@ const Hero = () => {
                     src={profilePic}
                     alt="Muhammad Abbas"
                     sx={{
-                      width: { xs: 270, md: 350 },
-                      height: { xs: 160, md: 360 }, // different width/height -> pill/oval
+                      // make avatar square and circular across breakpoints
+                      width: { xs: 220, md: 350 },
+                      height: { xs: 220, md: 350 },
                       objectFit: 'cover',
                       border: `4px solid ${theme.palette.primary.main}`,
                       boxShadow: `0 15px 40px ${theme.palette.primary.light}`,
                       transition: '0.3s',
                       cursor: 'pointer',
-                      borderRadius: '999px' // Pill / oval
+                      borderRadius: '50%' // consistent circle
                     }}
                   />
                 </motion.div>

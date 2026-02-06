@@ -54,6 +54,11 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.rounded {
+  border-radius: 12px;
+  overflow: hidden; /* keeps image clipped to radius */
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

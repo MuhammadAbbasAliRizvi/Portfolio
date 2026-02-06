@@ -1,12 +1,23 @@
 import React from 'react';
 import { Container, Grid, Typography, Button, Box, Avatar } from '@mui/material';
 import { motion } from 'framer-motion';
-import { Code, GitHub, Download } from '@mui/icons-material';
+import { Code, GitHub, LinkedIn, Download } from '@mui/icons-material';
 import profilePic from '../assets/pics/io.png';
+import cvPdf from '../assets/cv/CV - Abbas.pdf';
 import { useTheme } from '@mui/material/styles';
 
 const Hero = () => {
   const theme = useTheme(); // Detect current MUI theme (light/dark)
+
+  const downloadCV = (e) => {
+    e.preventDefault();
+    const link = document.createElement('a');
+    link.href = cvPdf;
+    link.download = 'Muhammad_Abbas_CV.pdf'; // desired filename when downloaded
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
 
   const isLight = theme.palette.mode === 'light';
 
@@ -276,9 +287,25 @@ const Hero = () => {
 
                   <Button
                     variant="text"
+                    startIcon={<LinkedIn />}
+                    href="https://www.linkedin.com/in/muhammad-abbas-708bb3366/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      color: theme.palette.text.primary,
+                      '&:hover': {
+                        color: '#0A66C2',
+                        bgcolor: 'transparent',
+                      },
+                    }}
+                  >
+                    LinkedIn
+                  </Button>
+
+                  <Button
+                    variant="text"
                     startIcon={<Download />}
-                    href="/resume.pdf"
-                    download
+                    onClick={downloadCV}
                     sx={{
                       color: theme.palette.text.primary,
                       '&:hover': {

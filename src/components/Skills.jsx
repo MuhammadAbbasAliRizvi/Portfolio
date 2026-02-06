@@ -18,8 +18,11 @@ const Skills = () => {
     { name: "CSS3", percentage: 85, color: "#1572b6" },
     { name: "JavaScript", percentage: 75, color: "#f7df1e" },
     { name: "React", percentage: 70, color: "#61dafb" },
-    { name: "Firebase", percentage: 85, color: "#ffca28" },
-    { name: "PHP", percentage: 40, color: "#777bb4" }
+    { name: "Firebase", percentage: 85, color: "#caab1f" },
+    { name: "NextJs", percentage: 80, color: "#e7e54c" },
+    { name: "MogoDB", percentage: 50, color: "#777bb4" },
+    { name: "Node.js", percentage: 40, color: "#439fca" },
+    { name: "Exprees.js", percentage: 60, color: "#e217c0" },
   ];
 
   return (

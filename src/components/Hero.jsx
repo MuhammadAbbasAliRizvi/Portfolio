@@ -3,7 +3,7 @@ import { Container, Grid, Typography, Button, Box, Avatar } from '@mui/material'
 import { motion } from 'framer-motion';
 import { Code, GitHub, LinkedIn, Download } from '@mui/icons-material';
 import profilePic from '../assets/pics/io.png';
-import cvPdf from '../assets/cv/CV - Abbas.pdf';
+import cvPdf from '../assets/cv/Abbas Resume Final.pdf';
 import { useTheme } from '@mui/material/styles';
 
 const Hero = () => {
@@ -13,7 +13,7 @@ const Hero = () => {
     e.preventDefault();
     const link = document.createElement('a');
     link.href = cvPdf;
-    link.download = 'Muhammad_Abbas_CV.pdf'; // desired filename when downloaded
+    link.download = 'Abbas Resume Final.pdf'; // desired filename when downloaded
     document.body.appendChild(link);
     link.click();
     link.remove();
